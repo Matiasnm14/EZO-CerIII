@@ -21,6 +21,6 @@ public class MetodoPago {
     private UUID id;
 
     @Column(name = "nombre_metodo",length = 25,nullable = false)
-    private String nombre_metodo;
+    private String nombreMetodo;
 
 }
