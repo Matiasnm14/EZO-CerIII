@@ -6,7 +6,7 @@
         <artifactId>ezo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>data2</artifactId>
+    <artifactId>data</artifactId>
     <name>Archetype - data2</name>
     <url>http://maven.apache.org</url>
 
