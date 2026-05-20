@@ -18,7 +18,7 @@ public class PaisService {
 
 
     @Transactional
-    public void save(@RequestBody Pais pais){
+    public void save(Pais pais){
         try{
             paisRepository.save(pais);
         }catch (Exception e){
@@ -32,7 +32,7 @@ public class PaisService {
     }
 
     @Transactional
-    public void deletePais(@RequestBody String IdPais){
+    public void deletePais(String IdPais){
         Optional<Pais> optionalPais = paisRepository.findById(IdPais);
         Pais pais = new Pais();
         if(optionalPais.isPresent()){
