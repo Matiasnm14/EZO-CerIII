@@ -27,6 +27,16 @@ public class MetodoPagoController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<MetodoPago> findById(@RequestParam String id){
+        try {
+            return ResponseEntity.ok(metodoPagoService.findById(id));
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<MetodoPago> save(@RequestBody MetodoPago metodoPago){
         try {
