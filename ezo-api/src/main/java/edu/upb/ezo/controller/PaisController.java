@@ -3,8 +3,6 @@ package edu.upb.ezo.controller;
 import edu.upb.ezo.repository.entity.Pais;
 import edu.upb.ezo.service.PaisService;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@Slf4j
 @Controller
 @AllArgsConstructor
 public class PaisController {
@@ -25,7 +22,7 @@ public class PaisController {
         try{
             return ResponseEntity.ok(paisService.getPaises());
         }catch (Exception e){
-            log.error(e.getMessage());
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -36,7 +33,7 @@ public class PaisController {
             paisService.save(pais);
             return ResponseEntity.ok("Pais gurardado correctamente!");
         }catch (Exception e){
-            log.error(e.getMessage());
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -47,7 +44,6 @@ public class PaisController {
             paisService.deletePais(IdPais);
             return ResponseEntity.ok("Pais eliminado correctamente");
         }catch (Exception e){
-            log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
