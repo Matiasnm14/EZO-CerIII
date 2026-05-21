@@ -32,6 +32,11 @@ public class PaisService {
         return paisRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Pais> findById(String id){
+        return this.paisRepository.findById(id);
+    }
+
     @Transactional
     public void deletePais(String IdPais){
         Optional<Pais> optionalPais = paisRepository.findById(IdPais);
