@@ -3,6 +3,7 @@ package edu.upb.ezo.controller;
 import edu.upb.ezo.repository.entity.Usuario;
 import edu.upb.ezo.service.UsuarioService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-
+@Slf4j
 @Controller("api/v1/usuario")
 @AllArgsConstructor
 public class UsuarioController {
@@ -23,7 +24,7 @@ public class UsuarioController {
         try{
             return ResponseEntity.ok(usuarioService.getUsuarios());
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -34,7 +35,7 @@ public class UsuarioController {
             usuarioService.save(usuario);
             return ResponseEntity.ok("Usuario guardado correctamente");
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -45,7 +46,7 @@ public class UsuarioController {
             usuarioService.deleteUsuarios(IdUsuario);
             return ResponseEntity.ok("Usuario Eliminado correctamente");
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
 

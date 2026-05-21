@@ -26,6 +26,7 @@ public class PaisService {
         }
     }
 
+    
     @Transactional(readOnly = true)
     public List<Pais> getPaises(){
         return paisRepository.findAll();
