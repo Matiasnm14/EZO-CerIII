@@ -1,27 +1,27 @@
 package edu.upb.ezo.controller;
 
 import edu.upb.ezo.repository.dto.request.IdRequestDto;
-import edu.upb.ezo.repository.entity.Usuario;
-import edu.upb.ezo.service.UsuarioService;
+import edu.upb.ezo.repository.entity.Factura;
+import edu.upb.ezo.service.FacturaService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Slf4j
+
 @Controller
-@RequestMapping("api/v1/usuario")
 @AllArgsConstructor
-public class UsuarioController {
-    private final UsuarioService usuarioService;
+@Slf4j
+@RequestMapping("api/v1/factura")
+public class FacturaController {
+    private final FacturaService facturaService;
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> usuarios(){
+    public ResponseEntity<List<Factura>> facturas(){
         try{
-            return ResponseEntity.ok(usuarioService.getUsuarios());
+            return ResponseEntity.ok(facturaService.getFacturas());
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -29,10 +29,10 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<String> postFactura(@RequestBody Factura factura){
         try{
-            usuarioService.save(usuario);
-            return ResponseEntity.ok("Usuario guardado correctamente");
+            facturaService.save(factura);
+            return ResponseEntity.ok("Factura guardada correctamente" + "\n" + factura);
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -40,14 +40,13 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUsuario(@RequestBody IdRequestDto IdUsuario){
+    public ResponseEntity<String> deleteFactura(@RequestBody IdRequestDto id){
         try{
-            usuarioService.deleteUsuarios(IdUsuario.getId());
-            return ResponseEntity.ok("Usuario Eliminado correctamente");
+            facturaService.delete(id.getId());
+            return ResponseEntity.ok("Factura eliminada correctamente");
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
-
     }
 }

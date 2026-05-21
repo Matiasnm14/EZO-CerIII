@@ -1,5 +1,6 @@
 package edu.upb.ezo.controller;
 
+import edu.upb.ezo.repository.dto.request.IdRequestDto;
 import edu.upb.ezo.repository.dto.response.DeveloperResponseDto;
 import edu.upb.ezo.repository.entity.Developer;
 import edu.upb.ezo.service.DeveloperService;
@@ -46,9 +47,9 @@ public class DeveloperController {
 
     @PostMapping("/delete")
     public ResponseEntity<String> deleteDeveloper(
-            @RequestBody String IdDeveloper){
+            @RequestBody IdRequestDto IdDeveloper){
         try {
-            developerService.deleteDeveloper(IdDeveloper);
+            developerService.deleteDeveloper(IdDeveloper.getId());
             return ResponseEntity.ok("Developer eliminado correctamente");
         } catch (Exception e){
             log.error(e.getMessage());

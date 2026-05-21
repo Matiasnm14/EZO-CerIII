@@ -18,11 +18,20 @@ public class UsuarioService {
     private final PaisRepository paisRepository;
     @Transactional
     public void save(Usuario usuario){
-        Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId().toString());
-        Usuario auxUser = new Usuario();
-        if (optionalPais.isPresent()){
-            userRepository.save(usuario);
+        if (usuario.getPais() == null || usuario.getPais().getId() == null) {
+            throw new IllegalArgumentException("El usuario debe tener un país asignado.");
         }
+
+        Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId().toString());
+
+        if (optionalPais.isEmpty()) {
+            throw new IllegalArgumentException("El país asignado no existe en el sistema.");
+        }
+        if (userRepository.findByEmail(usuario.getEmail()) != null) {
+            throw new IllegalArgumentException("El email ya está registrado por otro usuario.");
+        }
+
+        userRepository.save(usuario);
     }
 
     @Transactional(readOnly = true)

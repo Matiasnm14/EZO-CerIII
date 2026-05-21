@@ -1,27 +1,27 @@
 package edu.upb.ezo.controller;
 
 import edu.upb.ezo.repository.dto.request.IdRequestDto;
-import edu.upb.ezo.repository.entity.Usuario;
-import edu.upb.ezo.service.UsuarioService;
+import edu.upb.ezo.repository.entity.DatosFactura;
+import edu.upb.ezo.service.DatosFacturaService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Slf4j
 @Controller
-@RequestMapping("api/v1/usuario")
 @AllArgsConstructor
-public class UsuarioController {
-    private final UsuarioService usuarioService;
+@RequestMapping("api/v1/datos-factura")
+public class DatosFacturaController {
+    private final DatosFacturaService datosFacturaService;
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> usuarios(){
+    public ResponseEntity<List<DatosFactura>> datosFacturas(){
         try{
-            return ResponseEntity.ok(usuarioService.getUsuarios());
+            return ResponseEntity.ok(datosFacturaService.getDatosFactura());
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -29,10 +29,10 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<String> postDatosFactura(@RequestBody DatosFactura datosFactura){
         try{
-            usuarioService.save(usuario);
-            return ResponseEntity.ok("Usuario guardado correctamente");
+            datosFacturaService.save(datosFactura);
+            return ResponseEntity.ok("Dato Factura guardada correctamente" + "\n" + datosFactura);
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -40,14 +40,13 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUsuario(@RequestBody IdRequestDto IdUsuario){
+    public ResponseEntity<String> deleteDatosFactura(@RequestBody IdRequestDto id){
         try{
-            usuarioService.deleteUsuarios(IdUsuario.getId());
-            return ResponseEntity.ok("Usuario Eliminado correctamente");
+            datosFacturaService.delete(id.getId());
+            return ResponseEntity.ok("Datos factura eliminado");
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
-
     }
 }

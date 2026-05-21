@@ -1,5 +1,6 @@
 package edu.upb.ezo.controller;
 
+import edu.upb.ezo.repository.dto.request.IdRequestDto;
 import edu.upb.ezo.repository.entity.Pais;
 import edu.upb.ezo.service.PaisService;
 import lombok.AllArgsConstructor;
@@ -37,9 +38,9 @@ public class PaisController {
     }
 
     @DeleteMapping(value = "/delete", params = "id")
-    public ResponseEntity<String> deletePais(@RequestParam String id){
+    public ResponseEntity<String> deletePais(@RequestBody IdRequestDto id){
         try{
-            paisService.deletePais(id);
+            paisService.deletePais(id.getId());
             return ResponseEntity.ok("Pais eliminado correctamente");
         }catch (Exception e){
             return ResponseEntity.internalServerError().build();

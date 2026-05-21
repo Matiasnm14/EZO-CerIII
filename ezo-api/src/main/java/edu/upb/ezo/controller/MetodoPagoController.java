@@ -1,5 +1,6 @@
 package edu.upb.ezo.controller;
 
+import edu.upb.ezo.repository.dto.request.IdRequestDto;
 import edu.upb.ezo.repository.entity.MetodoPago;
 import edu.upb.ezo.service.MetodoPagoService;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @Controller
-@RequestMapping("pruebas/metodospago")
+@RequestMapping("pruebas/metodos-pago")
 public class MetodoPagoController {
     private final MetodoPagoService metodoPagoService;
 
@@ -49,9 +50,9 @@ public class MetodoPagoController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@RequestBody String id){
+    public ResponseEntity<String> delete(@RequestBody IdRequestDto id){
         try {
-            MetodoPago metodoPago = metodoPagoService.findById(id);
+            MetodoPago metodoPago = metodoPagoService.findById(id.getId());
             metodoPagoService.delete(metodoPago);
             return ResponseEntity.ok().body("Método de pago '" + metodoPago.getNombreMetodo() + "' eliminado");
         }catch (Exception e){

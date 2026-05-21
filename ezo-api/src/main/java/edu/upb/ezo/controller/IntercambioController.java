@@ -1,27 +1,28 @@
 package edu.upb.ezo.controller;
 
 import edu.upb.ezo.repository.dto.request.IdRequestDto;
-import edu.upb.ezo.repository.entity.Usuario;
-import edu.upb.ezo.service.UsuarioService;
+import edu.upb.ezo.repository.entity.Intercambio;
+import edu.upb.ezo.service.IntercambioService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Slf4j
 @Controller
-@RequestMapping("api/v1/usuario")
 @AllArgsConstructor
-public class UsuarioController {
-    private final UsuarioService usuarioService;
+@RequestMapping("api/v1/intercambio")
+public class IntercambioController {
+    private final IntercambioService intercambioService;
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> usuarios(){
+    public ResponseEntity<List<Intercambio>> intercambios(){
         try{
-            return ResponseEntity.ok(usuarioService.getUsuarios());
+            return ResponseEntity.ok(intercambioService.getIntercambios());
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -29,10 +30,10 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<String> postIntercambio(@RequestBody Intercambio intercambio){
         try{
-            usuarioService.save(usuario);
-            return ResponseEntity.ok("Usuario guardado correctamente");
+            intercambioService.save(intercambio);
+            return ResponseEntity.ok("Intercambio guardado correctamente" + "\n" + intercambio);
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -40,14 +41,13 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUsuario(@RequestBody IdRequestDto IdUsuario){
+    public ResponseEntity<String> deleteIntercambio(@RequestBody IdRequestDto id){
         try{
-            usuarioService.deleteUsuarios(IdUsuario.getId());
-            return ResponseEntity.ok("Usuario Eliminado correctamente");
+            intercambioService.delete(id.getId());
+            return ResponseEntity.ok("Intercambio eliminado correctamente");
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
-
     }
 }
