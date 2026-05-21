@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 ezo-api/src/main/resources/application.properties
-.env
+env
 .env.local
 *.log
 logs/
