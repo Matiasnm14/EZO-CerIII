@@ -2,7 +2,6 @@ package edu.upb.ezo.repository.entity;
 
 
 import jakarta.persistence.*;
-import jdk.jfr.Unsigned;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
@@ -27,5 +26,5 @@ public class Developer {
     private Pais pais;
 
     @Column(name = "fecha_fundacion", nullable = false)
-    private LocalDate fecha_fundacion;
+    private LocalDate fechaFundacion;
 }
