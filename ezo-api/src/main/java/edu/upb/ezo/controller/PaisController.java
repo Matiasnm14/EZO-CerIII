@@ -5,14 +5,12 @@ import edu.upb.ezo.service.PaisService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("api/v1/pais")
 @AllArgsConstructor
 public class PaisController {
     private final PaisService paisService;
@@ -38,10 +36,10 @@ public class PaisController {
         }
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deletePais(@RequestBody String IdPais){
+    @DeleteMapping(value = "/delete", params = "id")
+    public ResponseEntity<String> deletePais(@RequestParam String id){
         try{
-            paisService.deletePais(IdPais);
+            paisService.deletePais(id);
             return ResponseEntity.ok("Pais eliminado correctamente");
         }catch (Exception e){
             return ResponseEntity.internalServerError().build();

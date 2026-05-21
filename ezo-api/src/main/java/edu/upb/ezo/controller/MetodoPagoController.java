@@ -1,4 +1,4 @@
-package edu.upb.controller;
+package edu.upb.ezo.controller;
 
 import edu.upb.ezo.repository.entity.MetodoPago;
 import edu.upb.ezo.service.MetodoPagoService;
@@ -27,11 +27,11 @@ public class MetodoPagoController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<MetodoPago> findById(@RequestParam String id){
+    @GetMapping(params = "id")
+    public ResponseEntity<MetodoPago> findById(@RequestParam String id) {
         try {
             return ResponseEntity.ok(metodoPagoService.findById(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.badRequest().build();
         }

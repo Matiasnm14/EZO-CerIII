@@ -7,14 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Slf4j
-@Controller("api/v1/usuario")
+@Controller
+@RequestMapping("api/v1/usuario")
 @AllArgsConstructor
 public class UsuarioController {
     private final UsuarioService usuarioService;
@@ -51,5 +49,4 @@ public class UsuarioController {
         }
 
     }
-
 }
