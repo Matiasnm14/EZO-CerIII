@@ -34,10 +34,10 @@ public class DeveloperController {
 
     @PostMapping
     public ResponseEntity<String> postDeveloper(
-            @RequestBody String PaisId,
+            @RequestBody IdRequestDto PaisId,
             @RequestBody DeveloperResponseDto developer){
         try {
-            developerService.save(PaisId,developer);
+            developerService.save(PaisId.getId(),developer);
             return ResponseEntity.ok("Developer guardado correctamente");
         } catch (Exception e) {
             log.error(e.getMessage());

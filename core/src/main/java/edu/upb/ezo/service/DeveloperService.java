@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -25,7 +26,7 @@ public class DeveloperService {
     }
 
     @Transactional
-    public void save(String paisId, DeveloperResponseDto developerDto) throws Exception{
+    public void save(UUID paisId, DeveloperResponseDto developerDto) throws Exception{
         Optional<Pais> optionalPais = this.paisService.findById(paisId);
         Pais pais = optionalPais.orElse(null);
 
@@ -38,7 +39,7 @@ public class DeveloperService {
     }
 
     @Transactional(readOnly = true)
-    public void deleteDeveloper(String id){
+    public void deleteDeveloper(UUID id){
         Optional<Developer> optionalDeveloper = repository.findById(id);
         Developer developer = new Developer();
         if (optionalDeveloper.isPresent()){

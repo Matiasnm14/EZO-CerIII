@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class DatosFacturaService {
 
     @Transactional
     public void save(DatosFactura detalleFactura){
-        Optional<Usuario> optional = userRepository.findById(detalleFactura.getUsuario().getId().toString());
+        Optional<Usuario> optional = userRepository.findById(detalleFactura.getUsuario().getId());
 
         if(optional.isPresent()){
             datosFacturaRepository.save(detalleFactura);
@@ -34,7 +35,7 @@ public class DatosFacturaService {
     }
 
     @Transactional
-    public void delete(String id){
+    public void delete(UUID id){
         Optional<DatosFactura> optional = datosFacturaRepository.findById(id);
         DatosFactura datosFactura = new DatosFactura();
 

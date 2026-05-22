@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
+
 @Slf4j
 @Controller
 @RequestMapping("api/v1/usuario")
@@ -42,6 +44,7 @@ public class UsuarioController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUsuario(@RequestBody IdRequestDto IdUsuario){
         try{
+
             usuarioService.deleteUsuarios(IdUsuario.getId());
             return ResponseEntity.ok("Usuario Eliminado correctamente");
         }catch (Exception e){

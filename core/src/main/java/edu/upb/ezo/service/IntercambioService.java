@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,8 +22,8 @@ public class IntercambioService {
 
     @Transactional
     public void save(Intercambio intercambio){
-        Optional<Usuario> optionalUsuarioOrigen = userRepository.findById(intercambio.getUsuario_origen().getId().toString());
-        Optional<Usuario> optionalUsuarioDestino = userRepository.findById(intercambio.getUsuario_destino().getId().toString());
+        Optional<Usuario> optionalUsuarioOrigen = userRepository.findById(intercambio.getUsuario_origen().getId());
+        Optional<Usuario> optionalUsuarioDestino = userRepository.findById(intercambio.getUsuario_destino().getId());
 
         if(optionalUsuarioOrigen.isEmpty() && optionalUsuarioDestino.isPresent())
             throw new IllegalArgumentException("El Usuario Destino o el Usuario Origen no existen");
@@ -42,7 +43,7 @@ public class IntercambioService {
     }
 
     @Transactional
-    public void delete(String id){
+    public void delete(UUID id){
         Optional<Intercambio> optional = intercambioRepository.findById(id);
         Intercambio intercambio = new Intercambio();
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class UsuarioService {
             throw new IllegalArgumentException("El usuario debe tener un país asignado.");
         }
 
-        Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId().toString());
+        Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId());
 
         if (optionalPais.isEmpty()) {
             throw new IllegalArgumentException("El país asignado no existe en el sistema.");
@@ -40,7 +41,8 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void deleteUsuarios(String IdUsuario){
+    public void deleteUsuarios(UUID IdUsuario){
+        UUID uuid = UUID.fromString(IdUsuario.toString());
         Optional<Usuario> optionalUsuario = userRepository.findById(IdUsuario);
         Usuario usuario = new Usuario();
         if (optionalUsuario.isPresent()){
@@ -55,7 +57,7 @@ public class UsuarioService {
             throw new IllegalArgumentException("El ID del usuario es obligatorio para actualizar.");
         }
 
-        Optional<Usuario> optionalUsuario = userRepository.findById(usuario.getId().toString());
+        Optional<Usuario> optionalUsuario = userRepository.findById(usuario.getId());
         if (optionalUsuario.isEmpty()) {
             throw new IllegalArgumentException("El usuario que intenta actualizar no existe.");
         }
@@ -70,7 +72,7 @@ public class UsuarioService {
         }
 
         if (usuario.getPais() != null && usuario.getPais().getId() != null) {
-            Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId().toString());
+            Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId());
             if (optionalPais.isEmpty()) {
                 throw new IllegalArgumentException("El país asignado no existe en el sistema.");
             }
@@ -84,5 +86,15 @@ public class UsuarioService {
         if (usuario.getRol() != null) usuarioExistente.setRol(usuario.getRol());
 
         userRepository.save(usuarioExistente);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Usuario> findByUserIdToValidateSession(String id) {
+        return userRepository.findByUserIdToValidateSession(id);
+    }
+
+    @Transactional
+    public Optional<Usuario> findByUsername(String username){
+        return  userRepository.findBynombreUsuarioIgnoreCase(username);
     }
 }

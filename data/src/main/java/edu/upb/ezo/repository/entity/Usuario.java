@@ -1,19 +1,31 @@
 package edu.upb.ezo.repository.entity;
 
+import edu.upb.ezo.repository.enums.RoleType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
+@Builder
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements UserDetails {
     @Id
     @UuidGenerator
     private UUID id;
@@ -45,7 +57,8 @@ public class Usuario {
     private String telefono;
 
     @Column(length = 20, nullable = false)
-    private String rol;
+    @Enumerated(EnumType.STRING)
+    private RoleType rol;
 
     @Column(name = "fecha_registro", updatable = false)
     private LocalDateTime fechaRegistro = LocalDateTime.now();
@@ -54,4 +67,48 @@ public class Usuario {
     private Boolean emailVerificado = false;
 
     private Boolean activo = false;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(("ROLE_ROOT")));
+        return authorities;
+    }
+
+    @Override
+    public @Nullable String getPassword() {
+        return this.passwordHash;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.nombreUsuario;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
+    public Usuario(UUID id, String nombreUsuario, RoleType rol) {
+        this.id = id;
+        this.nombreUsuario = nombreUsuario;
+        this.rol = rol;
+    }
 }
