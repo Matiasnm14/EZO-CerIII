@@ -1,0 +1,9 @@
+.------..------..------.
+|E.--. ||Z.--. ||O.--. |
+| (\/) || :(): || :/\: |
+| :\/: || ()() || :\/: |
+| '--'E|| '--'Z|| '--'O|
+`------'`------'`------'
+${application.title} ${application.version}
+Made by Michel & Cavendish
+Powered by Spring Boot ${spring-boot.version}

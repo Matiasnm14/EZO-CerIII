@@ -50,4 +50,17 @@ public class UsuarioController {
         }
 
     }
+
+    @PutMapping
+    public ResponseEntity<String> putUsuario(@RequestBody Usuario usuario) {
+        try {
+            usuarioService.update(usuario);
+            return ResponseEntity.ok("Usuario actualizado correctamente");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

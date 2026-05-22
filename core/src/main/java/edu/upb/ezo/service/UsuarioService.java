@@ -49,4 +49,40 @@ public class UsuarioService {
         userRepository.delete(usuario);
     }
 
+    @Transactional
+    public void update(Usuario usuario) {
+        if (usuario.getId() == null) {
+            throw new IllegalArgumentException("El ID del usuario es obligatorio para actualizar.");
+        }
+
+        Optional<Usuario> optionalUsuario = userRepository.findById(usuario.getId().toString());
+        if (optionalUsuario.isEmpty()) {
+            throw new IllegalArgumentException("El usuario que intenta actualizar no existe.");
+        }
+
+        Usuario usuarioExistente = optionalUsuario.get();
+
+        if (usuario.getEmail() != null && !usuario.getEmail().equalsIgnoreCase(usuarioExistente.getEmail())) {
+            if (userRepository.findByEmail(usuario.getEmail()) != null) {
+                throw new IllegalArgumentException("El nuevo email ya está registrado por otro usuario.");
+            }
+            usuarioExistente.setEmail(usuario.getEmail());
+        }
+
+        if (usuario.getPais() != null && usuario.getPais().getId() != null) {
+            Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId().toString());
+            if (optionalPais.isEmpty()) {
+                throw new IllegalArgumentException("El país asignado no existe en el sistema.");
+            }
+            usuarioExistente.setPais(optionalPais.get());
+        }
+
+        if (usuario.getNombreUsuario() != null) usuarioExistente.setNombreUsuario(usuario.getNombreUsuario());
+        if (usuario.getPasswordHash() != null) usuarioExistente.setPasswordHash(usuario.getPasswordHash());
+        if (usuario.getFechaNacimiento() != null) usuarioExistente.setFechaNacimiento(usuario.getFechaNacimiento());
+        if (usuario.getTelefono() != null) usuarioExistente.setTelefono(usuario.getTelefono());
+        if (usuario.getRol() != null) usuarioExistente.setRol(usuario.getRol());
+
+        userRepository.save(usuarioExistente);
+    }
 }
