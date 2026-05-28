@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 ezo-api/src/main/resources/application.properties
+examen-api
+core/src/main/java/edu/upb/ezo/service/examen
+data/src/main/java/edu/upb/ezo/repository/examen
 env
 .env.local
 *.log
