@@ -1,13 +1,15 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.FacturaRepository;
-import edu.upb.ezo.repository.UserRepository;
+import edu.upb.ezo.repository.dto.request.FacturaRequestDto;
+import edu.upb.ezo.repository.repos.FacturaRepository;
+import edu.upb.ezo.repository.repos.UserRepository;
 import edu.upb.ezo.repository.entity.Factura;
 import edu.upb.ezo.repository.entity.Usuario;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,11 +21,25 @@ public class FacturaService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void save(Factura factura){
-        Optional<Usuario> optionalUsuario = userRepository.findById(factura.getUsuario().getId());
-        if(optionalUsuario.isPresent()){
-            facturaRepository.save(factura);
-        }
+    public void save(FacturaRequestDto facturaRequestDto){
+        Optional<Usuario> optionalUsuario = userRepository.findById(facturaRequestDto.getIdUsuario());
+        if(optionalUsuario.isEmpty())
+            throw new IllegalArgumentException("El usuario no existe");
+
+        Factura factura = new Factura();
+
+        factura.setNumeroFactura(facturaRequestDto.getNumeroFactura());
+        factura.setNit(facturaRequestDto.getNit());
+        factura.setImpuesto(facturaRequestDto.getImpuesto());
+        factura.setTotal(facturaRequestDto.getTotal());
+        factura.setFechaEmision(LocalDate.parse(facturaRequestDto.getFechaEmision()));
+        factura.setNitEmpresa(facturaRequestDto.getNitEmpresa());
+        factura.setRazonSocial(facturaRequestDto.getRazonSocial());
+        factura.setRazonSocialEmp(facturaRequestDto.getRazonSocialEmp());
+        factura.setSubtotal(facturaRequestDto.getSubtotal());
+        factura.setUsuario(optionalUsuario.get());
+
+        facturaRepository.save(factura);
     }
 
     @Transactional(readOnly = true)

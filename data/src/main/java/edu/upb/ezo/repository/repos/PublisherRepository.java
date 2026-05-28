@@ -1,4 +1,4 @@
-package edu.upb.ezo.repository;
+package edu.upb.ezo.repository.repos;
 
 import edu.upb.ezo.repository.dto.response.PublisherDto;
 import edu.upb.ezo.repository.entity.Publisher;

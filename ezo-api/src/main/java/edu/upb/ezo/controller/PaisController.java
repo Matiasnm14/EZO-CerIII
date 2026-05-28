@@ -5,11 +5,14 @@ import edu.upb.ezo.repository.entity.Pais;
 import edu.upb.ezo.service.PaisService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Secured({"ROLE_ADMIN"})
 @Controller
 @RequestMapping("api/v1/pais")
 @AllArgsConstructor
@@ -37,7 +40,7 @@ public class PaisController {
         }
     }
 
-    @DeleteMapping(value = "/delete", params = "id")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> deletePais(@RequestBody IdRequestDto id){
         try{
             paisService.deletePais(id.getId());

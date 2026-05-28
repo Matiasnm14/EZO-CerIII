@@ -1,12 +1,13 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.DatosFacturaRepository;
-import edu.upb.ezo.repository.UserRepository;
-import edu.upb.ezo.repository.entity.Articulo;
-import edu.upb.ezo.repository.entity.DatosFactura;
+import edu.upb.ezo.repository.dto.request.DatosFacturaRequestDto;
 import edu.upb.ezo.repository.entity.DetalleFactura;
+import edu.upb.ezo.repository.repos.DatosFacturaRepository;
+import edu.upb.ezo.repository.repos.UserRepository;
+import edu.upb.ezo.repository.entity.DatosFactura;
 import edu.upb.ezo.repository.entity.Usuario;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +22,26 @@ public class DatosFacturaService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void save(DatosFactura detalleFactura){
-        Optional<Usuario> optional = userRepository.findById(detalleFactura.getUsuario().getId());
+    public void save(DatosFacturaRequestDto datosFacturaRequestDto){
 
-        if(optional.isPresent()){
-            datosFacturaRepository.save(detalleFactura);
+        DatosFactura datosFactura = new DatosFactura();
+
+        datosFactura.setDireccion(datosFacturaRequestDto.getDireccion());
+        datosFactura.setNit(datosFacturaRequestDto.getNit());
+        datosFactura.setRazon_social(datosFacturaRequestDto.getRazonSocial());
+
+        Optional<Usuario> optional = userRepository.findById(datosFacturaRequestDto.getIdUsuario());
+
+        if(optional.isEmpty()){
+            throw new IllegalArgumentException("No existe el usuario para el Dato Factura");
         }
+
+        Usuario usuario = optional.get();
+
+        datosFactura.setUsuario(usuario);
+
+        datosFacturaRepository.save(datosFactura);
+
     }
 
     @Transactional(readOnly = true)

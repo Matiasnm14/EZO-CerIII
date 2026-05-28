@@ -1,10 +1,9 @@
 package edu.upb.ezo.repository.dto.request;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
 
 import java.util.UUID;
 
@@ -13,15 +12,15 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublisherRequestDto {
+public class ColeccionRequestDto {
     @JsonProperty("id")
     private UUID id;
 
-    @JsonProperty("nombre_editorial")
-    private String nombre; //nombre_editorial;
+    @JsonProperty("nombre")
+    @NotNull(message = "El nombre de la colección no puede ser nulo")
+    @NotBlank(message = "El nombre de la colección no puede estar en blanco")
+    private String nombre;
 
-    @NotNull(message = "El pais no puede ser nulo")
-    private UUID id_pais;
-
-    private String fechaFundacion;
+    @JsonProperty("id_publisher")
+    private UUID idPublisher;
 }

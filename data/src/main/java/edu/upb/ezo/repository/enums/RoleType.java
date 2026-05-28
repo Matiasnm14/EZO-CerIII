@@ -1,6 +1,6 @@
 package edu.upb.ezo.repository.enums;
 
 public enum RoleType {
-    USER_ROLE,
-    ADMIN_ROLE
+    ROLE_ADMIN,
+    ROLE_USER
 }

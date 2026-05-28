@@ -1,13 +1,17 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.PaisRepository;
-import edu.upb.ezo.repository.UserRepository;
+import edu.upb.ezo.repository.dto.request.UsuarioRequestDto;
+import edu.upb.ezo.repository.enums.RoleType;
+import edu.upb.ezo.repository.repos.PaisRepository;
+import edu.upb.ezo.repository.repos.UserRepository;
 import edu.upb.ezo.repository.entity.Pais;
 import edu.upb.ezo.repository.entity.Usuario;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,12 +22,9 @@ public class UsuarioService {
     private final UserRepository userRepository;
     private final PaisRepository paisRepository;
     @Transactional
-    public void save(Usuario usuario){
-        if (usuario.getPais() == null || usuario.getPais().getId() == null) {
-            throw new IllegalArgumentException("El usuario debe tener un país asignado.");
-        }
+    public void save(UsuarioRequestDto usuario){
 
-        Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId());
+        Optional<Pais> optionalPais = paisRepository.findById(usuario.getIdPais());
 
         if (optionalPais.isEmpty()) {
             throw new IllegalArgumentException("El país asignado no existe en el sistema.");
@@ -32,7 +33,12 @@ public class UsuarioService {
             throw new IllegalArgumentException("El email ya está registrado por otro usuario.");
         }
 
-        userRepository.save(usuario);
+        Usuario usuarioS = new Usuario();
+
+        BeanUtils.copyProperties(usuario, usuarioS);
+
+        usuarioS.setPais(optionalPais.get());
+        userRepository.save(usuarioS);
     }
 
     @Transactional(readOnly = true)
@@ -52,7 +58,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void update(Usuario usuario) {
+    public void update(UsuarioRequestDto usuario) {
         if (usuario.getId() == null) {
             throw new IllegalArgumentException("El ID del usuario es obligatorio para actualizar.");
         }
@@ -71,25 +77,25 @@ public class UsuarioService {
             usuarioExistente.setEmail(usuario.getEmail());
         }
 
-        if (usuario.getPais() != null && usuario.getPais().getId() != null) {
-            Optional<Pais> optionalPais = paisRepository.findById(usuario.getPais().getId());
+
+            Optional<Pais> optionalPais = paisRepository.findById(usuario.getIdPais());
             if (optionalPais.isEmpty()) {
                 throw new IllegalArgumentException("El país asignado no existe en el sistema.");
             }
             usuarioExistente.setPais(optionalPais.get());
-        }
+
 
         if (usuario.getNombreUsuario() != null) usuarioExistente.setNombreUsuario(usuario.getNombreUsuario());
         if (usuario.getPasswordHash() != null) usuarioExistente.setPasswordHash(usuario.getPasswordHash());
-        if (usuario.getFechaNacimiento() != null) usuarioExistente.setFechaNacimiento(usuario.getFechaNacimiento());
+        if (usuario.getFechaNacimiento() != null) usuarioExistente.setFechaNacimiento(LocalDate.parse(usuario.getFechaNacimiento()));
         if (usuario.getTelefono() != null) usuarioExistente.setTelefono(usuario.getTelefono());
-        if (usuario.getRol() != null) usuarioExistente.setRol(usuario.getRol());
+        if (usuario.getRol() != null) usuarioExistente.setRol(RoleType.valueOf(usuario.getRol()));
 
         userRepository.save(usuarioExistente);
     }
 
     @Transactional(readOnly = true)
-    public Optional<Usuario> findByUserIdToValidateSession(String id) {
+    public Optional<Usuario> findByUserIdToValidateSession(UUID id) {
         return userRepository.findByUserIdToValidateSession(id);
     }
 

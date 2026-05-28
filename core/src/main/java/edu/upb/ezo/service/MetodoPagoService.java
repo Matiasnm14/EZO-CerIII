@@ -1,10 +1,8 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.MetodoPagoRepository;
-import edu.upb.ezo.repository.dto.request.IdRequestDto;
+import edu.upb.ezo.repository.repos.MetodoPagoRepository;
 import edu.upb.ezo.repository.entity.MetodoPago;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -33,5 +33,6 @@
             <artifactId>spring-security-core</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 </project>

@@ -1,5 +1,6 @@
 package edu.upb.ezo.controller;
 
+import edu.upb.ezo.repository.dto.request.DeveloperRequestDto;
 import edu.upb.ezo.repository.dto.request.IdRequestDto;
 import edu.upb.ezo.repository.dto.response.DeveloperResponseDto;
 import edu.upb.ezo.repository.entity.Developer;
@@ -33,11 +34,9 @@ public class DeveloperController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postDeveloper(
-            @RequestBody IdRequestDto PaisId,
-            @RequestBody DeveloperResponseDto developer){
+    public ResponseEntity<String> postDeveloper(DeveloperRequestDto developer){
         try {
-            developerService.save(PaisId.getId(),developer);
+            developerService.save(developer);
             return ResponseEntity.ok("Developer guardado correctamente");
         } catch (Exception e) {
             log.error(e.getMessage());

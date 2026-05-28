@@ -1,6 +1,6 @@
 package edu.upb.ezo;
 
-import edu.upb.ezo.repository.UserRepository;
+import edu.upb.ezo.repository.repos.UserRepository;
 import edu.upb.ezo.repository.entity.Usuario;
 import edu.upb.ezo.repository.enums.RoleType;
 import lombok.AllArgsConstructor;
@@ -28,9 +28,22 @@ public class DataInitializer implements CommandLineRunner {
             Usuario root = userRepository.save(Usuario.builder()
                     .nombreUsuario("root")
                     .email("root@upb.com")
-                    .rol(RoleType.ADMIN_ROLE)
+                    .rol(RoleType.ROLE_ADMIN)
                     .nombre("Ricardo")
                     .apellido("Laredo")
+                    .emailVerificado(true)
+                    .fechaNacimiento(LocalDate.now())
+                    .telefono("00000000")
+                    .passwordHash(passwordEncoder.encode("password"))
+
+                    .build());
+
+            Usuario root2 = userRepository.save(Usuario.builder()
+                    .nombreUsuario("usurio")
+                    .email("usuario@upb.com")
+                    .rol(RoleType.ROLE_USER)
+                    .nombre("Matias")
+                    .apellido("Nunez")
                     .emailVerificado(true)
                     .fechaNacimiento(LocalDate.now())
                     .telefono("00000000")

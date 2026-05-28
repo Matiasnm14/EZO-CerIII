@@ -1,13 +1,10 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.PaisRepository;
-import edu.upb.ezo.repository.dto.request.IdRequestDto;
+import edu.upb.ezo.repository.repos.PaisRepository;
 import edu.upb.ezo.repository.entity.Pais;
-import jakarta.transaction.TransactionScoped;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;

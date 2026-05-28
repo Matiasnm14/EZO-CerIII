@@ -19,10 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.io.Serializable;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -73,14 +70,14 @@ public class JwtTokenProvider implements Serializable {
     }
 
 
-    private String getId(String token) {
+    private UUID getId(String token) {
         SecretKey secretKey = Keys.hmacShaKeyFor(secretKeyByte);
-        return Jwts.parser()
+        return UUID.fromString(Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
-                .getId();
+                .getId());
     }
 
     public String resolveToken(String bearerToken) {

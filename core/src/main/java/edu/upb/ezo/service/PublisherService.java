@@ -2,7 +2,7 @@ package edu.upb.ezo.service;
 
 
 import ch.qos.logback.core.util.StringUtil;
-import edu.upb.ezo.repository.PublisherRepository;
+import edu.upb.ezo.repository.repos.PublisherRepository;
 import edu.upb.ezo.repository.dto.request.PublisherRequestDto;
 import edu.upb.ezo.repository.dto.response.PublisherDto;
 import edu.upb.ezo.repository.entity.Publisher;

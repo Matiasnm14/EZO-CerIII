@@ -1,5 +1,6 @@
 package edu.upb.ezo.controller;
 
+import edu.upb.ezo.repository.dto.request.FacturaRequestDto;
 import edu.upb.ezo.repository.dto.request.IdRequestDto;
 import edu.upb.ezo.repository.entity.Factura;
 import edu.upb.ezo.service.FacturaService;
@@ -29,7 +30,7 @@ public class FacturaController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postFactura(@RequestBody Factura factura){
+    public ResponseEntity<String> postFactura(@RequestBody FacturaRequestDto factura){
         try{
             facturaService.save(factura);
             return ResponseEntity.ok("Factura guardada correctamente" + "\n" + factura);
