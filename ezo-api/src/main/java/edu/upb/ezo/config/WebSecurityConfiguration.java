@@ -43,13 +43,9 @@ public class WebSecurityConfiguration implements WebMvcConfigurer, Serializable 
                                                 "/api-docs/**",
                                                 "/swagger-ui.html").permitAll()
 
-<<<<<<< HEAD
-//
-                                        .requestMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
-=======
+
                                         .requestMatchers(HttpMethod.POST,"/api/v1/auth").permitAll()
 
->>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
 
 
 

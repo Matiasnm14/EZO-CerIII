@@ -1,9 +1,6 @@
 package edu.upb.ezo.config;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.databind.ObjectMapper;
-=======
->>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

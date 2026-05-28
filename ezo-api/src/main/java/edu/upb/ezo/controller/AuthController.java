@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-<<<<<<< HEAD
-
-=======
->>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
 import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -68,12 +64,10 @@ public class AuthController {
             throw new BadCredentialsException("Email o contraseña son incorrectos");
         }
 
-<<<<<<< HEAD
-=======
+
         /*
         Lo que dura la sesion es lo que dura el contexto.
          */
->>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.username(), data.password()));
             log.info("Autenticado correctamente");
@@ -90,9 +84,4 @@ public class AuthController {
             throw e;
         }
     }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
 }
