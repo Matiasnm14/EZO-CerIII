@@ -25,7 +25,8 @@
 		<module>data</module>
 		<module>core</module>
 		<module>ezo-api</module>
-	</modules>
+        <module>examen-api</module>
+    </modules>
 	<scm>
 		<connection/>
 		<developerConnection/>

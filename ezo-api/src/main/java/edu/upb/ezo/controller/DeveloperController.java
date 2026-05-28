@@ -7,6 +7,7 @@ import edu.upb.ezo.service.DeveloperService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+@Secured("ROL_ADMIN_EZO")
 @Slf4j
 @AllArgsConstructor
 @Controller
@@ -34,10 +36,9 @@ public class DeveloperController {
 
     @PostMapping
     public ResponseEntity<String> postDeveloper(
-            @RequestBody String PaisId,
             @RequestBody DeveloperResponseDto developer){
         try {
-            developerService.save(PaisId,developer);
+            developerService.save(developer.getPais().toString(),developer);
             return ResponseEntity.ok("Developer guardado correctamente");
         } catch (Exception e) {
             log.error(e.getMessage());
