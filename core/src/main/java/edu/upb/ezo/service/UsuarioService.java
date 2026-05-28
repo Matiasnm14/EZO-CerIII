@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -84,5 +85,15 @@ public class UsuarioService {
         if (usuario.getRol() != null) usuarioExistente.setRol(usuario.getRol());
 
         userRepository.save(usuarioExistente);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Usuario> findByUserIdToValidateSession(String id) {
+        return userRepository.findByUserIdToValidateSession(UUID.fromString(id));
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Usuario> findByUsername(String username) {
+        return userRepository.findByNombreUsuarioIgnoreCase(username);
     }
 }
