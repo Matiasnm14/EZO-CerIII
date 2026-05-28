@@ -1,4 +1,4 @@
-package edu.upb.ezo.repository;
+package edu.upb.ezo.repository.repos;
 
 import edu.upb.ezo.repository.entity.FacturaMetodo;
 import edu.upb.ezo.repository.entityID.FacturaMetodoId;

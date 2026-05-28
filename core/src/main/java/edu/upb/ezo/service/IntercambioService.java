@@ -1,7 +1,8 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.IntercambioRepository;
-import edu.upb.ezo.repository.UserRepository;
+import edu.upb.ezo.repository.dto.request.IntercambioRequestDto;
+import edu.upb.ezo.repository.repos.IntercambioRepository;
+import edu.upb.ezo.repository.repos.UserRepository;
 import edu.upb.ezo.repository.entity.Intercambio;
 import edu.upb.ezo.repository.entity.Usuario;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -20,20 +22,31 @@ public class IntercambioService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void save(Intercambio intercambio){
-        Optional<Usuario> optionalUsuarioOrigen = userRepository.findById(intercambio.getUsuario_origen().getId().toString());
-        Optional<Usuario> optionalUsuarioDestino = userRepository.findById(intercambio.getUsuario_destino().getId().toString());
+    public void save(IntercambioRequestDto intercambio){
+        Optional<Usuario> optionalUsuarioOrigen = userRepository.findById(intercambio.getIdUsuarioOrigen());
+        Optional<Usuario> optionalUsuarioDestino = userRepository.findById(intercambio.getIdUsuarioDestino());
 
-        if(optionalUsuarioOrigen.isEmpty() && optionalUsuarioDestino.isPresent())
+        if(optionalUsuarioOrigen.isEmpty() || optionalUsuarioDestino.isEmpty())
             throw new IllegalArgumentException("El Usuario Destino o el Usuario Origen no existen");
 
-        if(intercambio.getFecha() == null && intercambio.getFecha().isEqual(LocalDate.now()))
+
+        LocalDate date = LocalDate.parse(intercambio.getFecha());
+        if(date.isEqual(LocalDate.now()))
             throw new IllegalArgumentException("La fecha de intercambio no es valida (no puede ser nula, futura ni pasada)");
 
         if(intercambio.getEstado() == null)
             throw new IllegalArgumentException("El estado no puede ser nulo");
 
-        intercambioRepository.save(intercambio);
+        Intercambio intercambioS = new Intercambio();
+
+        intercambioS.setEstado(intercambio.getEstado());
+        intercambioS.setFecha(date);
+        intercambioS.setCantidad_destino(intercambio.getCantidadDestino());
+        intercambioS.setCantidad_origen(intercambio.getCantidadOrigen());
+        intercambioS.setUsuario_destino(optionalUsuarioDestino.get());
+        intercambioS.setUsuario_origen(optionalUsuarioOrigen.get());
+
+        intercambioRepository.save(intercambioS);
     }
 
     @Transactional(readOnly = true)
@@ -42,7 +55,7 @@ public class IntercambioService {
     }
 
     @Transactional
-    public void delete(String id){
+    public void delete(UUID id){
         Optional<Intercambio> optional = intercambioRepository.findById(id);
         Intercambio intercambio = new Intercambio();
 

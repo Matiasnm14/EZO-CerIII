@@ -1,7 +1,12 @@
 package edu.upb.ezo.config;
 
+<<<<<<< HEAD
 
 import edu.upb.ezo.repository.dto.OKAuthDto;
+=======
+import edu.upb.ezo.repository.dto.OKAuthDto;
+
+>>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
 import edu.upb.ezo.repository.entity.Usuario;
 import edu.upb.ezo.service.UsuarioService;
 import edu.upb.ezo.service.exception.InvalidJwtAuthenticationException;
@@ -19,10 +24,14 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
+=======
+import java.util.*;
+>>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
 
 @Slf4j
 @Component
@@ -73,14 +82,24 @@ public class JwtTokenProvider implements Serializable {
     }
 
 
+<<<<<<< HEAD
     private String getId(String token) {
         SecretKey secretKey = Keys.hmacShaKeyFor(secretKeyByte);
         return Jwts.parser()
+=======
+    private UUID getId(String token) {
+        SecretKey secretKey = Keys.hmacShaKeyFor(secretKeyByte);
+        return UUID.fromString(Jwts.parser()
+>>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
                 .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
+<<<<<<< HEAD
                 .getId();
+=======
+                .getId());
+>>>>>>> ad6cd0a49c91c567f4057b947f72c2bccb4519a8
     }
 
     public String resolveToken(String bearerToken) {

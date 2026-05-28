@@ -1,12 +1,12 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.MetodoPagoRepository;
+import edu.upb.ezo.repository.repos.MetodoPagoRepository;
 import edu.upb.ezo.repository.entity.MetodoPago;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -21,11 +21,11 @@ public class MetodoPagoService {
         return metodoPagoRepository.findAll();
     }
 
-    public MetodoPago findById(String id){
+    public MetodoPago findById(UUID id){
         return metodoPagoRepository.findById(id).orElse(null);
     }
 
-    public void deleteById(String id){
+    public void deleteById(UUID id){
         metodoPagoRepository.deleteById(id);
     }
 

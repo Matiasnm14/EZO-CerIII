@@ -1,6 +1,7 @@
 package edu.upb.ezo.controller;
 
 import edu.upb.ezo.repository.dto.request.IdRequestDto;
+import edu.upb.ezo.repository.dto.request.UsuarioRequestDto;
 import edu.upb.ezo.repository.entity.Usuario;
 import edu.upb.ezo.service.UsuarioService;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
+
 @Slf4j
 @Controller
 @RequestMapping("api/v1/usuario")
@@ -29,7 +32,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<String> postUsuario(@RequestBody UsuarioRequestDto usuario){
         try{
             usuarioService.save(usuario);
             return ResponseEntity.ok("Usuario guardado correctamente");
@@ -42,6 +45,7 @@ public class UsuarioController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUsuario(@RequestBody IdRequestDto IdUsuario){
         try{
+
             usuarioService.deleteUsuarios(IdUsuario.getId());
             return ResponseEntity.ok("Usuario Eliminado correctamente");
         }catch (Exception e){
@@ -52,7 +56,7 @@ public class UsuarioController {
     }
 
     @PutMapping
-    public ResponseEntity<String> putUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<String> putUsuario(@RequestBody UsuarioRequestDto usuario) {
         try {
             usuarioService.update(usuario);
             return ResponseEntity.ok("Usuario actualizado correctamente");

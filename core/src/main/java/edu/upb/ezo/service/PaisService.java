@@ -1,15 +1,14 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.PaisRepository;
+import edu.upb.ezo.repository.repos.PaisRepository;
 import edu.upb.ezo.repository.entity.Pais;
-import jakarta.transaction.TransactionScoped;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -33,12 +32,12 @@ public class PaisService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Pais> findById(String id){
+    public Optional<Pais> findById(UUID id){
         return this.paisRepository.findById(id);
     }
 
     @Transactional
-    public void deletePais(String IdPais){
+    public void deletePais(UUID IdPais){
         Optional<Pais> optionalPais = paisRepository.findById(IdPais);
         Pais pais = new Pais();
         if(optionalPais.isPresent()){

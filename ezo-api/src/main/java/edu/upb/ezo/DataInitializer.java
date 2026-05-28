@@ -1,9 +1,8 @@
 package edu.upb.ezo;
 
-import edu.upb.ezo.repository.UserRepository;
-import edu.upb.ezo.repository.entity.Pais;
+import edu.upb.ezo.repository.repos.UserRepository;
 import edu.upb.ezo.repository.entity.Usuario;
-import edu.upb.ezo.repository.enums.RolType;
+import edu.upb.ezo.repository.enums.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -29,17 +27,28 @@ public class DataInitializer implements CommandLineRunner {
         if (userRepository.count() == 0) {
             Usuario root = userRepository.save(Usuario.builder()
                     .nombreUsuario("root")
-                    .email("root@ezo.com")
-                    .pais(null)
-                    .passwordHash(passwordEncoder.encode("azoadmin"))
-                    .nombre("Balatro")
-                    .apellido("Balatrez")
+                    .email("root@upb.com")
+                    .rol(RoleType.ROLE_ADMIN)
+                    .nombre("Ricardo")
+                    .apellido("Laredo")
+                    .emailVerificado(true)
                     .fechaNacimiento(LocalDate.now())
                     .telefono("00000000")
-                    .rol(RolType.ROL_ADMIN_EZO)
-                    .fechaRegistro(LocalDateTime.now())
+                    .passwordHash(passwordEncoder.encode("password"))
+
+                    .build());
+
+            Usuario root2 = userRepository.save(Usuario.builder()
+                    .nombreUsuario("usurio")
+                    .email("usuario@upb.com")
+                    .rol(RoleType.ROLE_USER)
+                    .nombre("Matias")
+                    .apellido("Nunez")
                     .emailVerificado(true)
-                    .activo(true)
+                    .fechaNacimiento(LocalDate.now())
+                    .telefono("00000000")
+                    .passwordHash(passwordEncoder.encode("password"))
+
                     .build());
         }
     }

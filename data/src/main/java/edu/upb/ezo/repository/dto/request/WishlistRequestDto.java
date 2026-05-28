@@ -1,27 +1,21 @@
 package edu.upb.ezo.repository.dto.request;
 
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.UUID;
-
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublisherRequestDto {
+public class WishlistRequestDto {
     @JsonProperty("id")
     private UUID id;
-
-    @JsonProperty("nombre_editorial")
-    private String nombre; //nombre_editorial;
-
-    @NotNull(message = "El pais no puede ser nulo")
-    private UUID id_pais;
-
-    private String fechaFundacion;
+    @NotNull
+    @JsonProperty("id_usuario")
+    private UUID idUsuario;
 }

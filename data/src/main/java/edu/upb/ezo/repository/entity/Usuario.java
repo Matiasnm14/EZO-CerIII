@@ -1,6 +1,7 @@
 package edu.upb.ezo.repository.entity;
 
-import edu.upb.ezo.repository.enums.RolType;
+
+import edu.upb.ezo.repository.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -58,7 +59,7 @@ public class Usuario implements UserDetails {
 
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
-    private RolType rol;
+    private RoleType rol;
 
     @Column(name = "fecha_registro", updatable = false)
     private LocalDateTime fechaRegistro = LocalDateTime.now();
@@ -103,5 +104,11 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
+    }
+
+    public Usuario(UUID id, String nombreUsuario, RoleType rol) {
+        this.id = id;
+        this.nombreUsuario = nombreUsuario;
+        this.rol = rol;
     }
 }

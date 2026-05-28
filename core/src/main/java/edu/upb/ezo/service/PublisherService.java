@@ -2,7 +2,7 @@ package edu.upb.ezo.service;
 
 
 import ch.qos.logback.core.util.StringUtil;
-import edu.upb.ezo.repository.PublisherRepository;
+import edu.upb.ezo.repository.repos.PublisherRepository;
 import edu.upb.ezo.repository.dto.request.PublisherRequestDto;
 import edu.upb.ezo.repository.dto.response.PublisherDto;
 import edu.upb.ezo.repository.entity.Publisher;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -45,7 +46,7 @@ public class PublisherService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Publisher> findByID(String id) {
+    public Optional<Publisher> findByID(UUID id) {
         return this.repository.findById(id);
     }
 

@@ -1,6 +1,7 @@
 package edu.upb.ezo.controller;
 
 import edu.upb.ezo.repository.dto.request.IdRequestDto;
+import edu.upb.ezo.repository.dto.request.IntercambioRequestDto;
 import edu.upb.ezo.repository.entity.Intercambio;
 import edu.upb.ezo.service.IntercambioService;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -30,7 +31,7 @@ public class IntercambioController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postIntercambio(@RequestBody Intercambio intercambio){
+    public ResponseEntity<String> postIntercambio(@RequestBody IntercambioRequestDto intercambio){
         try{
             intercambioService.save(intercambio);
             return ResponseEntity.ok("Intercambio guardado correctamente" + "\n" + intercambio);

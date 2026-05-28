@@ -1,6 +1,6 @@
 package edu.upb.ezo.service;
 
-import edu.upb.ezo.repository.UserRepository;
+import edu.upb.ezo.repository.repos.UserRepository;
 import edu.upb.ezo.repository.entity.Usuario;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario authUser = this.userRepository.findByNombreUsuarioIgnoreCase(username)
+        Usuario authUser = this.userRepository.findBynombreUsuarioIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException("No existe el usuario"));
         String password = authUser.getPassword();
         return new org.springframework.security.core.userdetails.User(
@@ -31,3 +31,4 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
         );
     }
 }
+
