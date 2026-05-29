@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Secured({"ROLE_ADMIN"})
+@Secured({"ROLE_ADMIN","ROLE_USER"})
 @Controller
 @RequestMapping("api/v1/pais")
 @AllArgsConstructor
