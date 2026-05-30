@@ -48,24 +48,24 @@ public class EzoApplication implements CommandLineRunner {
 //			System.out.println(e);
 //		}
 
-//		Customer customer = new Customer();
-//
-//		customer.setName("Matias");
-//		customer.setLastname("Nunez");
-//		customer.setDocument_number("8912181");
-//
-//		StereumRequest stereumRequest = new StereumRequest();
-//		stereumRequest.setAmount("100");
-//		stereumRequest.setCountry("BO");
-//		stereumRequest.setNetwork("POLYGON");
-//		stereumRequest.setCustomer(customer);
-//		stereumRequest.setCurrency("USDT");
-//		stereumRequest.setCharge_reason("Compra de prueba");
-//		stereumRequest.setReservation_validity_time("10");
-//
-//		StereumResponse stereumResponse = stereumApi.post(stereumRequest);
-//
-//		System.out.println(stereumResponse);
+		Customer customer = new Customer();
+
+		customer.setName("Matias");
+		customer.setLastname("Nunez");
+		customer.setDocument_number("8912181");
+
+		StereumRequest stereumRequest = new StereumRequest();
+		stereumRequest.setAmount("200");
+		stereumRequest.setCountry("BO");
+		stereumRequest.setNetwork("POLYGON");
+		stereumRequest.setCustomer(customer);
+		stereumRequest.setCurrency("USDT");
+		stereumRequest.setCharge_reason("Compra de prueba");
+		stereumRequest.setReservation_validity_time("10");
+
+		StereumResponse stereumResponse = stereumApi.post(stereumRequest);
+
+		System.out.println(stereumResponse);
 
 
 
