@@ -41,6 +41,7 @@ public class ArticuloRequestDto {
     @NotBlank(message = "El tipo no puede estar en blanco")
     private String tipo;
 
+    @NotNull
     @JsonProperty("disponible")
     private Boolean disponible;
 

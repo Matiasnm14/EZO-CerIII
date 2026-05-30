@@ -26,10 +26,10 @@ public class Mensaje {
     @JoinColumn(name = "id_usuario_receptor",nullable = false,referencedColumnName = "id")
     private Usuario usuario_receptor;
 
-    @Column(name = "mensaje",columnDefinition = "TEXT")
+    @Column(name = "mensaje",columnDefinition = "TEXT",nullable = false)
     private String mensaje;
 
-    @Column(name = "fecha_emision")
+    @Column(name = "fecha_emision",nullable = false)
     private LocalDate fecha_emision;
 
 }

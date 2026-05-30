@@ -17,10 +17,11 @@ public class PublisherRequestDto {
     @JsonProperty("id")
     private UUID id;
 
+    @NotNull
+    @NotBlank
     @JsonProperty("nombre_editorial")
-    private String nombre; //nombre_editorial;
+    private String nombre;
 
-    @NotNull(message = "El pais no puede ser nulo")
     private UUID id_pais;
 
     private String fechaFundacion;

@@ -25,6 +25,8 @@ public class CopiaRequestDto {
     @NotBlank(message = "El código único no puede estar en blanco")
     private String codigoUnico;
 
+    @NotBlank
+    @NotNull
     @JsonProperty("estado")
     private String estado;
 

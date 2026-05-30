@@ -16,6 +16,7 @@ public class DetalleFacturaRequestDto {
     @JsonProperty("id")
     private UUID id;
 
+    @NotNull
     @JsonProperty("id_factura")
     private UUID idFactura;
 
@@ -26,9 +27,11 @@ public class DetalleFacturaRequestDto {
     @JsonProperty("descripcion")
     private String descripcion;
 
+    @NotNull
     @JsonProperty("cantidad")
     private Integer cantidad;
 
+    @NotNull
     @JsonProperty("precio_unitario")
     private BigDecimal precioUnitario;
 }

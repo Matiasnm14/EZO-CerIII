@@ -25,10 +25,10 @@ public class DatosFactura {
     @Column(name = "nit",nullable = false)
     private String nit;
 
-    @Column(name = "razon_social")
+    @Column(name = "razon_social",nullable = false)
     private String razon_social;
 
-    @Column(name = "direccion",columnDefinition = "TEXT")
+    @Column(name = "direccion",columnDefinition = "TEXT",nullable = false)
     private String direccion;
 
 }

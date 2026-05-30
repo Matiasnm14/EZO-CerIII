@@ -25,6 +25,6 @@ public class Developer {
     @JoinColumn(name = "id_pais", referencedColumnName = "id")
     private Pais pais;
 
-    @Column(name = "fecha_fundacion", nullable = false)
+    @Column(name = "fecha_fundacion", nullable = true)
     private LocalDate fechaFundacion;
 }

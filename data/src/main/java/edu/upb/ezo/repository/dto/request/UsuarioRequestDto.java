@@ -54,4 +54,19 @@ public class UsuarioRequestDto {
     @NotNull(message = "El rol no puede ser nulo")
     @NotBlank(message = "El rol no puede estar en blanco")
     private String rol;
+
+    @JsonProperty("fecha_registro")
+    @NotNull
+    @NotBlank
+    private String fechaRegistro;
+
+    @JsonProperty("email_verificado")
+    @NotNull
+    private boolean emailVerificado;
+
+    @JsonProperty("activo")
+    @NotNull
+    private boolean activo = false;
+
+
 }

@@ -21,6 +21,7 @@ public class ColeccionRequestDto {
     @NotBlank(message = "El nombre de la colección no puede estar en blanco")
     private String nombre;
 
+    @NotNull
     @JsonProperty("id_publisher")
     private UUID idPublisher;
 }

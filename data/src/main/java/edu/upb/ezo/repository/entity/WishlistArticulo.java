@@ -28,7 +28,7 @@ public class WishlistArticulo {
     @JoinColumn(name = "id_articulo",nullable = false,referencedColumnName = "id")
     private Articulo articulo;
 
-    @Column(name = "fecha_agregado")
+    @Column(name = "fecha_agregado",nullable = false)
     private LocalDate fecha_agregado;
 
     @Column(name = "prioridad")

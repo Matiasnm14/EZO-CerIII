@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -35,7 +36,8 @@ public class DataInitializer implements CommandLineRunner {
                     .fechaNacimiento(LocalDate.now())
                     .telefono("00000000")
                     .passwordHash(passwordEncoder.encode("password"))
-
+                    .fechaRegistro(LocalDateTime.now())
+                    .activo(true)
                     .build());
 
             Usuario root2 = userRepository.save(Usuario.builder()
@@ -48,7 +50,8 @@ public class DataInitializer implements CommandLineRunner {
                     .fechaNacimiento(LocalDate.now())
                     .telefono("00000000")
                     .passwordHash(passwordEncoder.encode("password"))
-
+                    .fechaRegistro(LocalDateTime.now())
+                    .activo(true)
                     .build());
         }
     }

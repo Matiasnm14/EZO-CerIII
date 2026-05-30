@@ -22,21 +22,27 @@ public class IntercambioRequestDto {
     private String fecha;
 
 
+    @NotNull
     @JsonProperty("id_usuario_origen")
     private UUID idUsuarioOrigen;
 
+    @NotNull
     @JsonProperty("id_usuario_destino")
     private UUID idUsuarioDestino;
 
+    @NotNull
+    @NotBlank
     @JsonProperty("estado")
     private String estado;
 
     @JsonProperty("fecha_completado")
     private String fechaCompletado;
 
+    @NotNull
     @JsonProperty("cantidad_origen")
     private Integer cantidadOrigen;
 
+    @NotNull
     @JsonProperty("cantidad_destino")
     private Integer cantidadDestino;
 }

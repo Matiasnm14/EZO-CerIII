@@ -36,7 +36,6 @@ public class Usuario implements UserDetails {
     @Column(unique = true, nullable = false, length = 50)
     private String email;
 
-    // Relación con tabla Paises (asumiendo que existe la entidad Pais)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pais")
     private Pais pais;
@@ -60,13 +59,22 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RoleType rol;
 
-    @Column(name = "fecha_registro", updatable = false)
+    @Column(name = "fecha_registro", updatable = false,nullable = false)
     private LocalDateTime fechaRegistro = LocalDateTime.now();
 
-    @Column(name = "email_verificado")
+    @Column(name = "email_verificado",nullable = false)
     private Boolean emailVerificado = false;
 
+    @Column(name = "activo",nullable = false)
     private Boolean activo = false;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Wishlist wishlist;
+
+    public void setWishlistRelacional(Wishlist wishlist) {
+        this.wishlist = wishlist;
+        wishlist.setUsuario(this);
+    }
 
 
     @Override

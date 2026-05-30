@@ -26,13 +26,13 @@ public class Comentario {
     @JoinColumn(name = "id_usuario",nullable = false,referencedColumnName = "id")
     private Usuario usuario;
 
-    @Column(name = "puntuacion")
+    @Column(name = "puntuacion",nullable = false)
     private int puntuacion;
 
-    @Column(name = "comentario",columnDefinition = "TEXT")
+    @Column(name = "comentario",columnDefinition = "TEXT",nullable = false)
     private String comentario;
 
-    @Column(name = "fecha")
+    @Column(name = "fecha",nullable = false)
     private LocalDate fecha;
 
 }

@@ -29,10 +29,10 @@ public class DetalleFactura {
     @Column(name = "descripcion",columnDefinition = "TEXT")
     private String descripcion;
 
-    @Column(name = "cantidad")
+    @Column(name = "cantidad",nullable = false)
     private int cantidad;
 
-    @Column(name = "precio_unitario",precision = 5, scale = 2)
+    @Column(name = "precio_unitario",precision = 5, scale = 2,nullable = false)
     private BigDecimal precio_unitario;
       
 }

@@ -37,6 +37,7 @@ public class Articulo {
     @Column(nullable = false, length = 20)
     private String tipo;
 
+    @Column(nullable = false,name = "disponible")
     private Boolean disponible = true;
 
     @ManyToOne(fetch = FetchType.LAZY)

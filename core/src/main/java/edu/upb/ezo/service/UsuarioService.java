@@ -1,6 +1,7 @@
 package edu.upb.ezo.service;
 
 import edu.upb.ezo.repository.dto.request.UsuarioRequestDto;
+import edu.upb.ezo.repository.entity.Wishlist;
 import edu.upb.ezo.repository.enums.RoleType;
 import edu.upb.ezo.repository.repos.PaisRepository;
 import edu.upb.ezo.repository.repos.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,9 +37,25 @@ public class UsuarioService {
 
         Usuario usuarioS = new Usuario();
 
-        BeanUtils.copyProperties(usuario, usuarioS);
+        if(usuario.getNombre() != null) usuarioS.setNombre(usuario.getNombre());
+        if(usuario.getApellido() != null) usuarioS.setApellido(usuario.getApellido());
+        if(usuario.getFechaNacimiento() != null) usuarioS.setFechaNacimiento(LocalDate.parse(usuario.getFechaNacimiento()));
+        if(usuario.getTelefono() != null) usuarioS.setTelefono(usuario.getTelefono());
+        if(usuario.getEmail() != null) usuarioS.setEmail(usuario.getEmail());
+        if(usuario.getNombreUsuario() != null) usuarioS.setNombreUsuario(usuario.getNombreUsuario());
+        if(usuario.getPasswordHash() != null) usuarioS.setPasswordHash(usuario.getPasswordHash());
+        if(usuario.getRol() != null) usuarioS.setRol(RoleType.valueOf(usuario.getRol()));
+        if(usuario.getFechaRegistro() != null) usuarioS.setFechaRegistro(LocalDateTime.parse(usuario.getFechaRegistro()));
+        if(usuario.isEmailVerificado()) usuarioS.setEmailVerificado(true);
+        usuarioS.setActivo(usuario.isActivo());
+
 
         usuarioS.setPais(optionalPais.get());
+
+        Wishlist wishlist = new Wishlist();
+
+        usuarioS.setWishlistRelacional(wishlist);
+
         userRepository.save(usuarioS);
     }
 

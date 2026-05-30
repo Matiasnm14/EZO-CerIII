@@ -26,14 +26,14 @@ public class Copia {
     @Column(name = "codigo_unico",nullable = false,columnDefinition = "TEXT")
     private String codigo_unico;
 
-    @Column(name = "estado",length = 20)
+    @Column(name = "estado",length = 20,nullable = false)
     private String estado;
 
     @Column(name = "tipo",nullable = false,length = 20)
     private String tipo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario",nullable = false,referencedColumnName = "id")
+    @JoinColumn(name = "id_usuario",nullable = true,referencedColumnName = "id")
     private Usuario usuario;
 
 }

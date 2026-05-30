@@ -22,12 +22,13 @@ public class TokenRecuperacion {
     @JoinColumn(name = "id_usuario",nullable = false,referencedColumnName = "id")
     private Usuario usuario;
 
-    @Column(name = "token",columnDefinition = "TEXT")
+    @Column(name = "token",columnDefinition = "TEXT",nullable = false)
     private String token;
 
-    @Column(name = "fecha_expiracion")
+    @Column(name = "fecha_expiracion",nullable = false)
     private LocalDate fecha_expiracion;
 
+    @Column(name = "usado",nullable = false)
     private boolean usado;
 
 }

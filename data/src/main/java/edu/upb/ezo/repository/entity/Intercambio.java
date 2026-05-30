@@ -19,7 +19,7 @@ public class Intercambio {
     @UuidGenerator
     private UUID id;
 
-    @Column(name = "fecha")
+    @Column(name = "fecha",nullable = false)
     private LocalDate fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,10 +36,10 @@ public class Intercambio {
     @Column(name = "fecha_completado")
     private LocalDate fecha_completado;
 
-    @Column(name = "cantidad_origen")
+    @Column(name = "cantidad_origen",nullable = false)
     private int cantidad_origen;
 
-    @Column(name = "cantidad_destino")
+    @Column(name = "cantidad_destino",nullable = false)
     private int cantidad_destino;
 
 }
