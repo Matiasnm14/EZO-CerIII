@@ -9,6 +9,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
+import java.util.UUID;
 
 @EnableJpaAuditing
 @SpringBootApplication
@@ -52,7 +53,7 @@ public class EzoApplication implements CommandLineRunner {
 
 		customer.setName("Matias");
 		customer.setLastname("Nunez");
-		customer.setDocument_number("8912181");
+		customer.setDocumentNumber("8912181");
 
 		StereumRequest stereumRequest = new StereumRequest();
 		stereumRequest.setAmount("200");
@@ -60,8 +61,9 @@ public class EzoApplication implements CommandLineRunner {
 		stereumRequest.setNetwork("POLYGON");
 		stereumRequest.setCustomer(customer);
 		stereumRequest.setCurrency("USDT");
-		stereumRequest.setCharge_reason("Compra de prueba");
-		stereumRequest.setReservation_validity_time("10");
+		stereumRequest.setChargeReason("Compra de prueba");
+		stereumRequest.setReservationValidityTime("10");
+		stereumRequest.setIdempotencyKey(UUID.randomUUID().toString());
 
 		StereumResponse stereumResponse = stereumApi.post(stereumRequest);
 

@@ -1,23 +1,29 @@
 package edu.upb.ezo.implementation;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import tools.jackson.databind.PropertyNamingStrategies;
+import tools.jackson.databind.annotation.JsonNaming;
+
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class StereumResponse {
-    private int amount;
+    private BigDecimal amount;
     private String currency;
-    private String POLYGON;
+    private String network;
     private String id;
-    private String qr_base64;
-    private String payment_link;
-    private String transaction_status;
-    private boolean on_main_net;
-    private String collecting_account;
-    private long expiration_time;
+    private String qrBase64;
+    private String paymentLink;
+    private String transactionStatus;
+    private boolean onMainNet;
+    private String collectingAccount;
+    private long expirationTime;
 }

@@ -3,9 +3,11 @@ package edu.upb.ezo.implementation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.time.Duration;
@@ -28,25 +30,21 @@ public class StereumApi {
     public StereumResponse post(StereumRequest request) throws Exception {
         RestClient restClient = create();
 
-        ResponseEntity<StereumResponse> response;
         try {
-            response = restClient.post()
-                    .uri(urlBase + "/api/v1/transactions/create-charge")
+            return restClient.post()
+                    .uri(urlBase+ "/api/v1/transactions/create-charge")
                     .header("Content-Type", "application/json")
-                    .header("Accept", "application/json")
                     .header("x-api-key", apiKey)
                     .body(request)
                     .retrieve()
-                    .toEntity(StereumResponse.class);
+                    .body(StereumResponse.class);
+
+        } catch (HttpClientErrorException e) {
+            String errorBody = e.getResponseBodyAsString();
+            throw new Exception("Stereum rechazó la petición (Código " + e.getStatusCode() + "): " + errorBody);
         } catch (Exception e) {
-            throw new Exception("Error en la autenticación con Stereum: " + e.getMessage());
+            throw new Exception("Error de comunicación o parseo con Stereum: " + e.getMessage());
         }
-
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new Exception("Error en la autenticación con Stereum: " + response.getStatusCode());
-        }
-
-        return response.getBody();
     }
 
 //    public String get(String id){
