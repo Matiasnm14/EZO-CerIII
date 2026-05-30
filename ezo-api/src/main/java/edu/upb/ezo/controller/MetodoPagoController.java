@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @Controller
-@RequestMapping("pruebas/metodos-pagos")
+@RequestMapping("pruebas/metodos-pago")
 public class MetodoPagoController {
     private final MetodoPagoService metodoPagoService;
 

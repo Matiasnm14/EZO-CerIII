@@ -82,7 +82,35 @@ public class Ezo {
         return response.getBody();
     }
 
+    public <T,R> R  post(String token, String url, T request, Class<R> responseType) throws Exception{
+        RestClient restClient = create();
 
+        ResponseEntity<R> response;
+        try {
+            response = restClient.post()
+                    .uri(urlBase + "/" + url)
+                    .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                    .header("Accept", MediaType.APPLICATION_JSON_VALUE)
+                    .header("Authorization", "Bearer " + token)
+                    .body(request)
+                    .retrieve()
+                    .toEntity(responseType);
+
+        } catch (NotDataFoundException e) {
+            log.error("NotDataFoundException. {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            log.error("Exception. ", e);
+            throw e;
+        }
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            log.error("Se generó error: {}", response.getStatusCode().value());
+            throw new Exception("Se generó error en la petición HTTP");
+        }
+
+        return response.getBody();
+    }
 
     private RestClient create() {
         SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();

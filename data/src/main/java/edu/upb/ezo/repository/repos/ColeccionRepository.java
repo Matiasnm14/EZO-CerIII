@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface ColeccionRepository extends JpaRepository<Coleccion, UUID> {
+    UUID id(UUID id);
 }
